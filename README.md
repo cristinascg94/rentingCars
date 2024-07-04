@@ -1,6 +1,6 @@
 # rentingCars
 
 Run the backend
-`node index`
+ node index
 
 to execute the seed file: `node seed.js`
