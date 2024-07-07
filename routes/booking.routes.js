@@ -14,4 +14,10 @@ router.get('/user/:userId', protect, restrictToSelf, restrictTo('admin', 'user')
 // Ruta para cancelar una reserva (accesible solo para el usuario correspondiente o administradores)
 router.delete('/:id', protect, restrictToSelf, restrictTo('admin', 'user'), bookingController.cancelBooking);
 
+// acceder a todas las reservas. Restringido a los administradores
+router.get('/', protect, restrictTo('admin'), bookingController.getBookings);
+
+// actualizar la reserva 
+router.patch('/:id', protect, restrictToSelf, restrictTo('admin', 'user'), bookingController.updateBooking);
+
 module.exports = router;

@@ -80,6 +80,32 @@ const bookingController = {
         } catch (error) {
             res.status(500).json({ message: 'Error al cancelar la reserva', error: error.message });
         }
+    },
+
+    getBookings: async (req, res) => {
+        try {
+            const bookings = await Booking.find({});
+            res.status(200).json(bookings);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener las reservas', error: error.message });
+        }
+    },
+
+    updateBooking: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const { startDate, endDate } = req.body;
+
+            const findUdateBooking = await Booking.findByIdAndUpdate(id, { startDate, endDate }, { new: true });
+            
+            if (!findUdateBooking) {
+                return res.status(404).json({ message: 'La reserva no se ha encontrado' });
+            }
+            res.status(200).json({ message: 'Reserva actualizada correctamente', booking: findUdateBooking });
+
+        } catch (error) {
+            es.status(500).json({ message: 'Error al actualizar la reserva', error: error.message });
+        }
     }
 };
 
